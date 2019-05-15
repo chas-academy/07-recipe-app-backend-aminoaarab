@@ -9,5 +9,5 @@ Route::post('user/login', 'APILoginController@login');
 Route::post('user/save-recipe', 'RecipeController@store');
 Route::get('user/saved', 'RecipeController@getSavedRecipes');
 
-Route::delete('save-recipe', 'RecipeController@destroy');
+Route::post('user/saved-recipe/{id}', 'RecipeController@destroy');
 

@@ -82,8 +82,8 @@ class RecipeController extends Controller
      * @param  \App\Recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Recipe $recipe)
+    public function destroy(Recipe $recipe, Request $request)
     {
-        //
+        Recipe::where('id', $request->id)->delete();
     }
 }
