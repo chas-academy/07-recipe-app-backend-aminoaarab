@@ -22,7 +22,7 @@ class APILoginController extends Controller
         }
         $credentials = $request->only('email', 'password');
         try {
-            if (! $token = JWTAuth::attempt($credentials)) {
+            if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json(['error' => 'invalid_credentials'], 401);
             }
         } catch (JWTException $e) {
@@ -30,7 +30,14 @@ class APILoginController extends Controller
         }
         return response()->json(compact('token'));
     }
+
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
 }
+
+
 
 // namespace App\Http\Controllers\Auth;
 

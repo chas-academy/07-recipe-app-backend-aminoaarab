@@ -1,44 +1,89 @@
 <?php
+
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+
 use App\Recipe;
-use App\Http\Resources\RecipeResource;
+use Illuminate\Http\Request;
+
 class RecipeController extends Controller
 {
-    public function __construct()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $this->middleware('auth:api')->except(
-            [
-                'store', 'getSavedRecipes', 'destroy', 'updateRecipe'
-            ]
-        );
+        //
     }
-    public function getSavedRecipes()
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        return RecipeResource::collection(Recipe::all());
+        //
     }
-    
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-        $recipe = Recipe::create(
-            [
-                'email' => $request->email,
-                'label' => $request->label,
-                'image' => $request->image,
-                'calories' => $request->calories,
-                'healthLabels' => $request->healthLabels,
-                'ingredientLines' => $request->ingredientLines
-            ]
-        );
-        return new RecipeResource($recipe);
+        Recipe::create([
+            'title' => $request->get('title'),
+            'description' => $request->get('description'),
+        ]);
     }
-    public function updateRecipe(Request $request)
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Recipe  $recipe
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Recipe $recipe)
     {
-        Recipe::where('id', $request->id)->update($request->all());
+        //
     }
-    public function destroy(Request $request)
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Recipe  $recipe
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Recipe $recipe)
     {
-        Recipe::where('id', $request->id)->delete();
-        return RecipeResource::collection(Recipe::all());
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Recipe  $recipe
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Recipe $recipe)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Recipe  $recipe
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Recipe $recipe)
+    {
+        //
     }
 }
