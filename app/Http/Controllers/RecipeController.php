@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Recipe;
 use Illuminate\Http\Request;
+use App\Http\Resources\RecipeResource;
 
 class RecipeController extends Controller
 {
@@ -27,6 +28,10 @@ class RecipeController extends Controller
         //
     }
 
+    public function getSavedRecipes()
+    {
+        return RecipeResource::collection(Recipe::all());
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,10 +41,12 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        Recipe::create([
+        $recipe = Recipe::create([
             'title' => $request->get('title'),
             'description' => $request->get('description'),
         ]);
+
+        return new RecipeResource($recipe);
     }
 
     /**
